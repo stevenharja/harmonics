@@ -1,0 +1,284 @@
+<!DOCTYPE HTML>
+<!--
+	Telephasic by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Melody Generator - Harmonics</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+		<link rel="stylesheet" href="assets/css/harmonics.css"/>
+	</head>
+	<body class="no-sidebar is-preload">
+		<div id="page-wrapper">
+
+			<!-- Header -->
+			<div id="header-wrapper">
+				<div id="header" class="container">
+
+					<!-- Logo -->
+						<h1 id="logo"><a href="index.html">Harmonics</a></h1>
+
+					<!-- Nav -->
+						<nav id="nav">
+							<ul>
+								<li><a href="index.html">Home</a></li>
+								<li><a href="learn-scales.html">Learn Scales</a></li>
+								<li class="break"><a href="generator.html">Melody Generator</a></li>
+								<li><a href="reddit-music.html">r/music</a></li>
+								
+							</ul>
+						</nav>
+
+				</div>
+			</div>
+
+			<!-- Main -->
+				<div class="wrapper">
+					<div class="container" id="main">
+
+						<!-- Content -->
+							<article id="content2">
+								<div id = "column-1">
+									<header>
+										<h2>Melody Generator</h2>
+										<p>Start creating melodies below! If you want to save it, it will show on the right side of the page.</p>
+									</header>
+									<div id="generator">
+										<div class="border-bottom-thin">
+											<label for = "generator">Melody Generator: </label>
+										
+											<select id="scaleSelect" onchange = "changeScale(this)">
+												<option value ="def" selected disabled hidden>Choose major key...</option>
+												<option value = "def">No Specific Key</option>
+												<option value = "C">C</option>
+												<option value = "Cs">C#/Db</option>
+												<option value = "D">D</option>
+												<option value = "Ds">D#/Eb</option>
+												<option value = "E">E</option>
+												<option value = "F">F</option>
+												<option value = "Fs">F#/Gb</option>
+												<option value = "G">G</option>
+												<option value = "Gs">G#/Ab</option>
+												<option value = "A">A</option>
+												<option value = "As">A#/Bb</option>
+												<option value = "B">B</option>
+											</select>
+										</div>
+										
+	
+										<div class="border-bottom-thin">
+											<label for = "scaleNotes">Possible Notes: </label>
+											<div id = "scaleNotes"> Select a key above to display...</div>
+										</div>
+										<!-- Temporary Fix -->
+										<!--  -->
+										<div class="padding-thin">
+											<!-- future implementation -->
+											<button id="play" onclick="playAll()"><i class="fa fa-play" aria-hidden="true"></i></button>
+											<button id="note1" onclick="playAudio(this)">Note</button>
+											<button id="note2" onclick="playAudio(this)">Note</button>
+											<button id="note3" onclick="playAudio(this)">Note</button>
+											<button id="note4" onclick="playAudio(this)">Note</button>
+											<button onclick="randomize()">Randomize!</button>
+											<button id="save" onclick = "saveMelody()"><i class="fa fa-floppy-o" aria-hidden="true"></i> Save</button>
+										</div>
+									</div>
+								</div>
+								<div id = "column-2">
+									<div id = "saved-generator">
+										<label for = "list-of-saves">List of Saved Melody: </label>
+										<button id = "reset" onclick = resetList(this)>Reset</button>
+										<button id = "removeLast" onclick = removeLastMelody()>Remove Last Entered</button>
+										<ol id = "list-of-saves"></ul>
+									</div>
+								</div>
+							</article>
+					</div>
+				</div>
+
+			<!-- Footer -->
+				<div id="footer-wrapper">
+				<div id="footer" class="container">
+					<header class="major">
+						<h2>"Music is the social act of communication among people, a gesture of friendship, the strongest there is."</h2>
+						<p>Malcolm Arnold</p>
+					</header>
+
+				</div>
+				<div id="copyright" class="container">
+					<ul class="menu">
+						<li>Copyright &copy; 2020 Steven Harjapramana. All rights reserved.</li>
+					</ul>
+				</div>
+				</div>
+
+		</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.dropotron.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+	<script>
+
+		randomize();
+		resetList(document.getElementById("reset"));
+
+		function randomize(){
+			startUp("#note1");
+			startUp("#note2");
+			startUp("#note3");
+			startUp("#note4");
+		}
+
+		function callScale(scaleKey){
+			let scaleArray;
+			switch(scaleKey){
+				case "C":
+					scaleArray = ["C","D","E","F","G","A","B"];
+					break;
+				case "Cs":
+					scaleArray = ["Cs","Ds","Es","Fs","Gs","As","Bs"];
+					break;
+				case "D":
+					scaleArray = ["D","E","Fs","G","A","B","Cs"];
+					break;
+				case "Ds":
+					scaleArray = ["Ds","Es","Fss","Gs","As","Bs","Css"];
+					break;
+				case "E":
+					scaleArray = ["E","Fs","Gs","A","B","Cs","Ds"];
+					break;
+				case "F":
+					scaleArray = ["F","G","A","As","B","C","D","E"];
+					break;
+				case "Fs":
+					scaleArray = ["Fs","Gs","As","Bs","Cs","Ds","Es"];
+					break;
+				case "G":
+					scaleArray = ["G","A","B","C","D","E","Fs"];
+					break;
+				case "Gs":
+					scaleArray = ["Gs","As","Bs","Cs","Ds","Es","Fss"];
+					break;
+				case "A":
+					scaleArray = ["A","B","Cs","D","E","Fs","Gs"];
+					break;
+				case "As":
+					scaleArray = ["As","Bs","Css","Ds","Es","Fss","Gss"];
+					break;
+				case "B":
+					scaleArray = ["B","Cs","Ds","E","Fs","Gs","As"];
+					break;
+				default:
+					scaleArray = ["A","As","B","C","Cs","D","Ds","E","F","Fs","G","Gs"];
+			}
+			return scaleArray;
+			
+		}
+
+		
+		function startUp(noteButton){
+			let selectedScale = document.getElementById("scaleSelect").value; // then call the callScale to get the notesArray
+			let notes = callScale(selectedScale);
+			let randomNumber = Math.round(Math.random() * (notes.length-1));
+			let notePicked = notes[randomNumber];
+
+			document.querySelector(noteButton).innerHTML = (notePicked.length < 2)? (notes[randomNumber]) : (notes[randomNumber][0]+"#") ;
+			document.querySelector(noteButton).value = notes[randomNumber];
+		}
+		function playAudio(element){
+			let value = element.value;
+			let audioFileName = "audio/melodyAudio/" +value + ".wav";
+			let audioFile = new Audio(audioFileName);
+			audioFile.play();
+
+		}
+
+		function playAll(){
+			let note1 = document.getElementById("note1");
+			let note2 = document.getElementById("note2");
+			let note3 = document.getElementById("note3");
+			let note4 = document.getElementById("note4");
+
+			playAudio(note1);
+
+			setTimeout(function(){
+				playAudio(note2);
+			},1000*1)
+
+			setTimeout(function(){
+				playAudio(note3);
+			},1000*2)
+
+			setTimeout(function(){
+				playAudio(note4);
+			},1000*3)
+		}
+
+		function displayScaleNotes(notes){
+			// Displays the notes of the scale selected, with its clickable audio
+			let scaleNotes = document.getElementById("scaleNotes");
+			for (let i = 0; i < notes.length; i++){
+				let node = document.createElement('button');
+				node.setAttribute("value", notes[i]);
+				node.setAttribute("onclick","playAudio(this)");
+				node.innerHTML = notes[i].length < 2 ? notes[i] : notes[i][0] + "#".repeat(notes[i].length-1);
+				
+				scaleNotes.appendChild(node);
+			}
+		}
+
+		function changeScale(element){
+			randomize();
+			console.log(element.value);
+			let notes = callScale(element.value);
+			let scaleNotes = document.getElementById("scaleNotes");
+			scaleNotes.innerHTML = "";
+			displayScaleNotes(notes);
+
+		}
+
+		function saveMelody(){
+			let melodyList = document.createElement("li");
+			let note1 = document.getElementById("note1");
+			let note2 = document.getElementById("note2");
+			let note3 = document.getElementById("note3");
+			let note4 = document.getElementById("note4");
+			let list = document.getElementById("list-of-saves");
+			melodyList.setAttribute("class","border-bottom-thin");
+			melodyList.appendChild(note1.cloneNode(true));
+			melodyList.appendChild(note2.cloneNode(true));
+			melodyList.appendChild(note3.cloneNode(true));
+			melodyList.appendChild(note4.cloneNode(true));
+			// maybe add a counter? and then call that counter so that you can break down melody etc?
+			list.appendChild(melodyList);
+			
+		}
+
+		function removeLastMelody(){ //can remove melody based on the number selected?
+			let list = document.getElementById("list-of-saves");
+			if (list.childNodes.length != 0){ //as long as it is not empty
+				list.removeChild(list.childNodes[list.childNodes.length-1]);
+			}
+		}
+
+		function resetList(buttonClicked){
+			let list = document.getElementById("list-of-saves");
+			list.innerHTML = "";
+		}
+
+		// Possible plans -> Able to generate notes based on the number of notes selected, will need to change these methods
+		// randomize(), playAll(), saveMelody();
+
+	</script>
+</html>

@@ -1,0 +1,102 @@
+/* Scale Selector on Learn Scales Page */
+#scale-selector{
+    display: block;
+    margin-bottom: 3em;
+}
+
+/* https://www.w3schools.com/howto/howto_custom_select.asp */
+/* TODO Create a custom select template */
+#scale-selector select {
+    width: 25%;
+    height: 3em;
+    padding-left: 1.25em;
+    padding-right: 1.25em;
+}
+
+#generator, #topPosts, #subreddit-selections, .post-content{
+    border: 1px solid black;
+    border-radius: 5px;
+    display: inline-block;
+    padding: 5px;
+    width: 95%;
+}
+
+#generator button, #saved-generator button{
+    background-color: #f77b77;
+    color: white;
+}
+
+#generator #play, #generator #save, #saved-generator #reset, #subreddit-selections button, .important-btn{
+    background-color: #800f0b;
+    color: white;
+}
+
+#generator #save {
+    width: 100%;
+    margin-top: 1em;
+}
+
+.border-bottom-thin {
+    border-bottom: 1px solid black;
+    padding: 1em;
+    width: 100%;
+}
+
+.padding-thin {
+    padding:1em;
+}
+
+#select-num-of-notes {
+    display: block;
+}
+#number-of-notes {
+    width: 50%;
+    margin-bottom: 1em;
+}
+
+#saved-generator{
+    border: 1px solid black;
+    border-radius: 5px;
+    display: inline-block;
+    padding: 5px;
+    width: 95%;
+}
+
+#saved-generator li{
+    width: 90%;
+}
+
+
+@media (min-width: 1080px){
+    
+    #content2{
+        display: flex;
+    }
+    
+    #column-1{
+        width: 50%;
+    }
+    
+    #column-2{
+        width: 50%;
+    }
+
+    #bar-fixed.stickIt {
+        position: fixed;
+        top: 60px;
+        width: 23.1%;
+    }
+    
+    #sidebar {
+        float:left;
+    }
+
+    #go-top{
+        position: fixed;
+        z-index: 99;
+        cursor: pointer;
+        right: 30px;
+        bottom: 30px;
+    }
+    
+}
